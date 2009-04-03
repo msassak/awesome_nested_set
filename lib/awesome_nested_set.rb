@@ -73,9 +73,11 @@ module CollectiveIdea #:nodoc:
           extend ClassMethods
 
           # no bulk assignment
-          attr_protected  left_column_name.intern,
-                          right_column_name.intern, 
-                          parent_column_name.intern
+          unless attr_accessible.length > 0
+            attr_protected  left_column_name.intern,
+                            right_column_name.intern, 
+                            parent_column_name.intern
+          end
                           
           before_create :set_default_left_and_right
           before_destroy :prune_from_tree
